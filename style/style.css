@@ -114,3 +114,24 @@ h3 {
 .toggle_off_large:hover {
   cursor: pointer;
 }
+
+.footer {
+  padding-top: 30px;
+  color: #fdb44b;
+}
+
+#github-link {
+  color: #962071;
+}
+
+#units {
+  color: #76b39d;
+}
+
+#celsius-link {
+  color: #76b39d;
+}
+
+#fahrenheit-link {
+  color: #76b39d;
+}
