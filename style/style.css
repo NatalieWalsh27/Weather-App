@@ -1,0 +1,116 @@
+body {
+  background-image: url("images/Scene-24.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: 20px;
+}
+
+@font-face {
+  font-family: CeraRoundPro;
+  src: url("cera-round-pro-free-font/Demo_fonts/Fontspring-DEMO-ceraroundpro-medium.otf");
+}
+
+@font-face {
+  font-family: CeraRoundProLight;
+  src: url("cera-round-pro-free-font/Demo_fonts/Fontspring-DEMO-ceraroundpro-light.otf");
+}
+h1,
+h2,
+h4,
+p {
+  font-family: CeraRoundPro;
+  text-align: center;
+}
+
+h1,
+h2,
+h3 {
+  color: #962071;
+  text-shadow: 2px 2px rgba(255, 255, 255, 0.7);
+}
+form {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 30px;
+}
+
+#enter-a-city {
+  border: #76b39d;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  border-color: #76b39d;
+  border-image: none;
+  border-style: solid;
+  border-width: 4px;
+  font-family: CeraRoundPro;
+  text-align: center;
+  color: black;
+}
+
+button {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+  border-color: #76b39d;
+  border-image: none;
+  border-style: solid;
+  border-width: 4px;
+  font-family: CeraRoundPro;
+  color: #76b39d;
+}
+
+h1 {
+  font-size: 75px;
+  margin-top: 30px;
+  margin-bottom: 0;
+}
+
+h2 {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+h3 {
+  font-family: CeraRoundProLight;
+  text-align: center;
+  font-size: 120px;
+}
+
+.degrees {
+  font-size: 80px;
+  position: relative;
+  bottom: 30px;
+}
+
+.container {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 30px;
+  padding-top: 20px;
+}
+.seeMore {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.light_mode {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+  color: #fdb44b;
+  font-size: 50px;
+}
+
+.toggle_off {
+  color: #76b39d;
+  font-size: 40px;
+}
+
+.toggle_off_large {
+  color: #962071;
+  font-size: 90px;
+  text-align: center;
+  display: block;
+}
+
+.toggle_off_large:hover {
+  cursor: pointer;
+}
