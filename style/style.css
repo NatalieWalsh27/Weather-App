@@ -5,20 +5,11 @@ body {
   font-size: 20px;
 }
 
-@font-face {
-  font-family: CeraRoundPro;
-  src: url("cera-round-pro-free-font/Demo_fonts/Fontspring-DEMO-ceraroundpro-medium.otf");
-}
-
-@font-face {
-  font-family: CeraRoundProLight;
-  src: url("cera-round-pro-free-font/Demo_fonts/Fontspring-DEMO-ceraroundpro-light.otf");
-}
 h1,
 h2,
 h4,
 p {
-  font-family: CeraRoundPro;
+  font-family: "Fredoka", sans-serif;
   text-align: center;
 }
 
@@ -43,7 +34,7 @@ form {
   border-image: none;
   border-style: solid;
   border-width: 4px;
-  font-family: CeraRoundPro;
+  font-family: "Fredoka", sans-serif;
   text-align: center;
   color: black;
 }
@@ -55,7 +46,7 @@ button {
   border-image: none;
   border-style: solid;
   border-width: 4px;
-  font-family: CeraRoundPro;
+  font-family: "Fredoka", sans-serif;
   color: #76b39d;
 }
 
@@ -71,7 +62,8 @@ h2 {
 }
 
 h3 {
-  font-family: CeraRoundProLight;
+  font-family: "Fredoka", sans-serif;
+  font-weight: 100;
   text-align: center;
   font-size: 120px;
 }
@@ -132,7 +124,7 @@ h3 {
 #units {
   color: #962071;
   font-size: 25px;
-  font-family: CeraRoundPro;
+  font-family: "Fredoka", sans-serif;
   position: relative;
   top: -60px;
   left: 30px;
@@ -149,4 +141,5 @@ h3 {
 #h3-details,
 #h3-details2 {
   font-size: 30px;
+  font-weight: 100;
 }

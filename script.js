@@ -31,6 +31,13 @@ let months = [
 ];
 let month = months[now.getMonth()];
 
+if (hour < 10) {
+  hour = "0" + hour;
+}
+if (minutes < 10) {
+  minutes = "0" + minutes;
+}
+
 let dateAndTime = document.querySelector("#date-and-time");
 dateAndTime.innerHTML = `${day} ${date} ${month}  ⎹  ${hour}:${minutes}`;
 
@@ -43,17 +50,19 @@ function showSearchTemperature(response) {
   let humidity = response.data.main.humidity;
   let wind = response.data.wind.speed;
   let UV = 5;
-  let sunrise = response.data.sys.sunrise;
-  let sunset = response.data.sys.sunset;
-  let sunriseTimestamp = response.data.sys.sunrise * 1000;
-  let sunriseDate = new Date(sunriseTimestamp);
+  let sunrise = response.data.sys.sunrise * 1000;
+  let sunset = response.data.sys.sunset * 1000;
+  let sunriseDate = new Date(sunrise);
   let sunriseHours = sunriseDate.getHours();
   let sunriseMinutes = sunriseDate.getMinutes();
+  let sunsetDate = new Date(sunset);
+  let sunsetHours = sunsetDate.getHours();
+  let sunsetMinutes = sunsetDate.getMinutes();
 
   let h3Details = document.querySelector("#h3-details");
-  h3Details.innerHTML = `Precipitation ${precipitation}<br> Humidity ${humidity} <br> Wind ${wind}`;
+  h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}kph`;
   let h3Details2 = document.querySelector("#h3-details2");
-  h3Details2.innerHTML = `UV ${UV}<br> Sunrise ${sunriseHours}:${sunriseMinutes}<br> Sunset ${sunset}`;
+  h3Details2.innerHTML = `UV ${UV}<br> Sunrise ${sunriseHours}:${sunriseMinutes}<br> Sunset ${sunsetHours}:${sunsetMinutes}`;
 }
 
 function changeCity(event) {
