@@ -42,14 +42,20 @@ let dateAndTime = document.querySelector("#date-and-time");
 dateAndTime.innerHTML = `${day} ${date} ${month}  ⎹  ${hour}:${minutes}`;
 
 function showSearchTemperature(response) {
+  console.log(response.data);
+  let description = response.data.weather[0].description;
+  let h2Description = document.querySelector("#description");
+  h2Description.innerHTML = description;
+
   let temperature = Math.round(response.data.main.temp);
   let h3 = document.querySelector("#temperature");
   h3.innerHTML = `${temperature}`;
 
   let precipitation = 0;
   let humidity = response.data.main.humidity;
-  let wind = response.data.wind.speed;
+  let wind = Math.round(response.data.wind.speed);
   let UV = 5;
+
   let sunrise = response.data.sys.sunrise * 1000;
   let sunset = response.data.sys.sunset * 1000;
   let sunriseDate = new Date(sunrise);
@@ -58,6 +64,19 @@ function showSearchTemperature(response) {
   let sunsetDate = new Date(sunset);
   let sunsetHours = sunsetDate.getHours();
   let sunsetMinutes = sunsetDate.getMinutes();
+
+  if (sunriseHours < 10) {
+    sunriseHours = "0" + sunriseHours;
+  }
+  if (sunriseMinutes < 10) {
+    sunriseMinutes = "0" + sunriseMinutes;
+  }
+  if (sunsetHours < 10) {
+    sunsetHours = "0" + sunsetHours;
+  }
+  if (sunsetMinutes < 10) {
+    sunsetMinutes = "0" + sunsetMinutes;
+  }
 
   let h3Details = document.querySelector("#h3-details");
   h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}kph`;
