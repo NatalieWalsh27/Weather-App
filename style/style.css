@@ -82,11 +82,6 @@ h3 {
   bottom: 30px;
 }
 
-.container {
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 30px;
-  padding-top: 20px;
-}
 .seeMore {
   display: block;
   margin: 0 auto;
@@ -120,6 +115,11 @@ h3 {
   color: #fdb44b;
 }
 
+#forecast-container {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 30px;
+  padding-top: 20px;
+}
 #github-link {
   color: #962071;
 }
@@ -134,4 +134,9 @@ h3 {
 
 #fahrenheit-link {
   color: #76b39d;
+}
+
+#h3-details,
+#h3-details2 {
+  font-size: 30px;
 }
