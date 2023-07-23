@@ -34,24 +34,26 @@ let month = months[now.getMonth()];
 let dateAndTime = document.querySelector("#date-and-time");
 dateAndTime.innerHTML = `${day} ${date} ${month}  ⎹  ${hour}:${minutes}`;
 
-let precipitation;
-let humidity;
-let wind;
-let UV;
-let sunrise;
-let sunset;
-
 function showSearchTemperature(response) {
   let temperature = Math.round(response.data.main.temp);
   let h3 = document.querySelector("#temperature");
   h3.innerHTML = `${temperature}`;
 
-  precipitation = 0;
-  humidity = response.data.main.humidity;
-  wind = response.data.wind.speed;
-  UV = 5;
-  sunrise = response.data.sys.sunrise;
-  sunset = response.data.sys.sunset;
+  let precipitation = 0;
+  let humidity = response.data.main.humidity;
+  let wind = response.data.wind.speed;
+  let UV = 5;
+  let sunrise = response.data.sys.sunrise;
+  let sunset = response.data.sys.sunset;
+  let sunriseTimestamp = response.data.sys.sunrise * 1000;
+  let sunriseDate = new Date(sunriseTimestamp);
+  let sunriseHours = sunriseDate.getHours();
+  let sunriseMinutes = sunriseDate.getMinutes();
+
+  let h3Details = document.querySelector("#h3-details");
+  h3Details.innerHTML = `Precipitation ${precipitation}<br> Humidity ${humidity} <br> Wind ${wind}`;
+  let h3Details2 = document.querySelector("#h3-details2");
+  h3Details2.innerHTML = `UV ${UV}<br> Sunrise ${sunriseHours}:${sunriseMinutes}<br> Sunset ${sunset}`;
 }
 
 function changeCity(event) {
@@ -114,14 +116,3 @@ function retrievePosition(position) {
 &lon=${longitude}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(showCurrentTemperature);
 }
-
-function toggleDetails(event) {
-  event.preventDefault();
-  let h3Details = document.querySelector("#h3-details");
-  h3Details.innerHTML = `Precipitation ${precipitation}<br> Humidity ${humidity} <br> Wind ${wind}`;
-  let h3Details2 = document.querySelector("#h3-details2");
-  h3Details2.innerHTML = `UV ${UV}<br> Sunrise ${sunrise}<br> Sunsest${sunset}`;
-}
-
-let mainToggleOff = document.querySelector("#main-toggle-off");
-mainToggleOff.addEventListener("click", toggleDetails);

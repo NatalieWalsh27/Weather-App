@@ -124,16 +124,26 @@ h3 {
   color: #962071;
 }
 
+#temperature {
+  position: relative;
+  left: 50px;
+}
+
 #units {
-  color: #76b39d;
+  color: #962071;
+  font-size: 25px;
+  font-family: CeraRoundPro;
+  position: relative;
+  top: -60px;
+  left: 30px;
 }
 
 #celsius-link {
-  color: #76b39d;
+  color: #962071;
 }
 
 #fahrenheit-link {
-  color: #76b39d;
+  color: #962071;
 }
 
 #h3-details,
