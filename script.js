@@ -1,87 +1,92 @@
-let now = new Date();
+function formatDate() {
+  let now = new Date();
 
-let date = now.getDate();
-let hour = now.getHours();
-let minutes = now.getMinutes();
+  let date = now.getDate();
+  let hour = now.getHours();
+  let minutes = now.getMinutes();
 
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = days[now.getDay()];
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[now.getDay()];
 
-let months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-let month = months[now.getMonth()];
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  let month = months[now.getMonth()];
 
-if (hour < 10) {
-  hour = "0" + hour;
+  if (hour < 10) {
+    hour = "0" + hour;
+  }
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+
+  let dateAndTime = document.querySelector("#date-and-time");
+  dateAndTime.innerHTML = `${day} ${date} ${month}  ⎹  ${hour}:${minutes}`;
 }
-if (minutes < 10) {
-  minutes = "0" + minutes;
-}
-
-let dateAndTime = document.querySelector("#date-and-time");
-dateAndTime.innerHTML = `${day} ${date} ${month}  ⎹  ${hour}:${minutes}`;
 
 function showSearchTemperature(response) {
-  console.log(response.data);
-  let description = response.data.weather[0].description;
+  let description = response.data.condition.description;
   let h2Description = document.querySelector("#description");
+  let dateElement = document.querySelector("#date-and-time");
+  let iconElement = document.querySelector("#icon");
   h2Description.innerHTML = description;
+  dateElement.innerHTML = formatDate(response.data.time * 1000);
+  iconElement.setAttribute("src", `${response.data.condition.icon_url}`);
 
-  let temperature = Math.round(response.data.main.temp);
+  let temperature = Math.round(response.data.temperature.current);
   let h3 = document.querySelector("#temperature");
   h3.innerHTML = `${temperature}`;
 
   let precipitation = 0;
-  let humidity = response.data.main.humidity;
+  let humidity = response.data.temperature.humidity;
   let wind = Math.round(response.data.wind.speed);
   let UV = 5;
 
-  let sunrise = response.data.sys.sunrise * 1000;
-  let sunset = response.data.sys.sunset * 1000;
-  let sunriseDate = new Date(sunrise);
-  let sunriseHours = sunriseDate.getHours();
-  let sunriseMinutes = sunriseDate.getMinutes();
-  let sunsetDate = new Date(sunset);
-  let sunsetHours = sunsetDate.getHours();
-  let sunsetMinutes = sunsetDate.getMinutes();
+  //let sunrise = response.data.sys.sunrise * 1000;
+  //let sunset = response.data.sys.sunset * 1000;
+  //let sunriseDate = new Date(sunrise);
+  //let sunriseHours = sunriseDate.getHours();
+  //let sunriseMinutes = sunriseDate.getMinutes();
+  //let sunsetDate = new Date(sunset);
+  //let sunsetHours = sunsetDate.getHours();
+  //let sunsetMinutes = sunsetDate.getMinutes();
 
-  if (sunriseHours < 10) {
-    sunriseHours = "0" + sunriseHours;
-  }
-  if (sunriseMinutes < 10) {
-    sunriseMinutes = "0" + sunriseMinutes;
-  }
-  if (sunsetHours < 10) {
-    sunsetHours = "0" + sunsetHours;
-  }
-  if (sunsetMinutes < 10) {
-    sunsetMinutes = "0" + sunsetMinutes;
-  }
+  //if (sunriseHours < 10) {
+  //  sunriseHours = "0" + sunriseHours;
+  //}
+  //if (sunriseMinutes < 10) {
+  // sunriseMinutes = "0" + sunriseMinutes;
+  //}
+  //if (sunsetHours < 10) {
+  //sunsetHours = "0" + sunsetHours;
+  //}
+  //if (sunsetMinutes < 10) {
+  // sunsetMinutes = "0" + sunsetMinutes;
+  //}
 
   let h3Details = document.querySelector("#h3-details");
   h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}kph`;
   let h3Details2 = document.querySelector("#h3-details2");
-  h3Details2.innerHTML = `UV ${UV}<br> Sunrise ${sunriseHours}:${sunriseMinutes}<br> Sunset ${sunsetHours}:${sunsetMinutes}`;
+  h3Details2.innerHTML = `UV ${UV}<br> Sunrise 00:00<br> Sunset 00:00`;
 }
 
 function changeCity(event) {
@@ -89,8 +94,8 @@ function changeCity(event) {
   let city = document.querySelector("#enter-a-city");
   let h1City = document.querySelector("h1");
   h1City.innerHTML = city.value;
-  let apiKey = "be81f193e065bf5feb2d944c7336968b";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&units=metric&appid=${apiKey}`;
+  let apiKey = "fe4080aao899e9f0t02b715782f60cc3";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city.value}&units=metric&key=${apiKey}`;
 
   axios.get(apiUrl).then(showSearchTemperature);
 }
@@ -137,10 +142,10 @@ function getPosition() {
 }
 
 function retrievePosition(position) {
-  let apiKey = "be81f193e065bf5feb2d944c7336968b";
+  let apiKey = "fe4080aao899e9f0t02b715782f60cc3";
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}
-&lon=${longitude}&units=metric&appid=${apiKey}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lat=${latitude}
+&lon=${longitude}&units=metric&key=${apiKey}`;
   axios.get(apiUrl).then(showCurrentTemperature);
 }

@@ -64,7 +64,6 @@ h2 {
 h3 {
   font-family: "Fredoka", sans-serif;
   font-weight: 100;
-  text-align: center;
   font-size: 140px;
 }
 
@@ -123,13 +122,20 @@ h3 {
   border-radius: 30px;
   padding-top: 20px;
 }
+
 #github-link {
   color: #962071;
 }
 
+#icon {
+  position: relative;
+  left: -20px;
+}
+
 #temperature {
   position: relative;
-  left: 50px;
+  left: 70px;
+  top: -160px;
 }
 
 #units {
@@ -137,8 +143,8 @@ h3 {
   font-size: 25px;
   font-family: "Fredoka", sans-serif;
   position: relative;
-  top: -80px;
-  left: 15px;
+  top: -240px;
+  left: 35px;
 }
 
 #celsius-link {
