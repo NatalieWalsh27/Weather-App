@@ -130,8 +130,13 @@ fahrenheitLink.addEventListener("click", changeToFahrenheit);
 
 let celsiusTemperature = null;
 
+function getForecast(coordinates) {
+  let apiKey = "fe4080aao899e9f0t02b715782f60cc3";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&units=metric&key=${apiKey}`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function showCurrentTemperature(response) {
-  console.log(response.data);
   let h1 = document.querySelector("h1");
   let cityName = response.data.city;
   h1.innerHTML = `${cityName}`;
@@ -181,6 +186,8 @@ function showCurrentTemperature(response) {
   h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}km/h`;
   let h3Details2 = document.querySelector("#h3-details2");
   h3Details2.innerHTML = `UV ${UV}<br> Sunrise 00:00<br> Sunset 00:00`;
+
+  getForecast(response.data.coordinates);
 }
 function handlePosition(position) {
   console.log(position.coords.latitude);
@@ -203,7 +210,8 @@ function retrievePosition(position) {
   axios.get(apiUrl).then(showCurrentTemperature);
 }
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response.data.daily);
   let forecastElement = document.querySelector("#forecast-container");
 
   let forecastHTML = `<div class="row">`;
