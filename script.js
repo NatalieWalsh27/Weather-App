@@ -43,52 +43,20 @@ function formatDate(timestamp) {
   return `Last Updated: ${day} ${dateNumber} ${month}  ⎹  ${hour}:${minutes}`;
 }
 
-function showSearchTemperature(response) {
-  let description = response.data.condition.description;
-  let h2Description = document.querySelector("#description");
-  let dateElement = document.querySelector("#date-and-time");
-  let iconElement = document.querySelector("#icon");
-  h2Description.innerHTML = description;
-  dateElement.innerHTML = formatDate(response.data.time * 1000);
-  iconElement.setAttribute("src", `${response.data.condition.icon_url}`);
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
 
-  celsiusTemperature = response.data.temperature.current;
-
-  let temperature = Math.round(celsiusTemperature);
-  let h3 = document.querySelector("#temperature");
-  h3.innerHTML = `${temperature}`;
-
-  let precipitation = 0;
-  let humidity = response.data.temperature.humidity;
-  let wind = Math.round(response.data.wind.speed);
-  let UV = 5;
-
-  //let sunrise = response.data.sys.sunrise * 1000;
-  //let sunset = response.data.sys.sunset * 1000;
-  //let sunriseDate = new Date(sunrise);
-  //let sunriseHours = sunriseDate.getHours();
-  //let sunriseMinutes = sunriseDate.getMinutes();
-  //let sunsetDate = new Date(sunset);
-  //let sunsetHours = sunsetDate.getHours();
-  //let sunsetMinutes = sunsetDate.getMinutes();
-
-  //if (sunriseHours < 10) {
-  //  sunriseHours = "0" + sunriseHours;
-  //}
-  //if (sunriseMinutes < 10) {
-  // sunriseMinutes = "0" + sunriseMinutes;
-  //}
-  //if (sunsetHours < 10) {
-  //sunsetHours = "0" + sunsetHours;
-  //}
-  //if (sunsetMinutes < 10) {
-  // sunsetMinutes = "0" + sunsetMinutes;
-  //}
-
-  let h3Details = document.querySelector("#h3-details");
-  h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}km/h`;
-  let h3Details2 = document.querySelector("#h3-details2");
-  h3Details2.innerHTML = `UV ${UV}<br> Sunrise 00:00<br> Sunset 00:00`;
+  return days[day];
 }
 
 function changeCity(event) {
@@ -99,7 +67,7 @@ function changeCity(event) {
   let apiKey = "fe4080aao899e9f0t02b715782f60cc3";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city.value}&units=metric&key=${apiKey}`;
 
-  axios.get(apiUrl).then(showSearchTemperature);
+  axios.get(apiUrl).then(showCurrentTemperature);
 }
 
 let form = document.querySelector("form");
@@ -211,30 +179,32 @@ function retrievePosition(position) {
 }
 
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
+  console.log(forecast[0].condition.icon_url);
   let forecastElement = document.querySelector("#forecast-container");
 
   let forecastHTML = `<div class="row">`;
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
-        <div class="col-md-2" id="1">
-          <p>
-            Monday
-            <br />
-            <span class="material-symbols-rounded light_mode">
-              light_mode
-            </span>
-            <br />
-            13° ⎹ 20°
-            <br /><span class="material-symbols-rounded toggle_off">
+
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
+        <div class="col-2">
+        <div class="weather-forecast-date">${formatDay(forecastDay.time)}</div>
+            <img src= ${forecastDay.condition.icon_url}/>
+            <div class="weather-forecast-temperature"><span class="weather-forecast-temperature-max">
+            ${Math.round(
+              forecastDay.temperature.maximum
+            )}°</span> ⎹ <span class="weather-forecast-temperature-min">${Math.round(
+          forecastDay.temperature.minimum
+        )}°</span>
+<span class="material-symbols-rounded toggle_off">
               toggle_off
             </span>
-          </p>
         </div>
   `;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
