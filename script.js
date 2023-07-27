@@ -52,7 +52,9 @@ function showSearchTemperature(response) {
   dateElement.innerHTML = formatDate(response.data.time * 1000);
   iconElement.setAttribute("src", `${response.data.condition.icon_url}`);
 
-  let temperature = Math.round(response.data.temperature.current);
+  celsiusTemperature = response.data.temperature.current;
+
+  let temperature = Math.round(celsiusTemperature);
   let h3 = document.querySelector("#temperature");
   h3.innerHTML = `${temperature}`;
 
@@ -105,14 +107,19 @@ form.addEventListener("submit", changeCity);
 
 function changeToCelsius(event) {
   event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
   let temperatureDisplay = document.querySelector("#temperature");
-  temperatureDisplay.innerHTML = 16;
+  temperatureDisplay.innerHTML = Math.round(celsiusTemperature);
 }
 
 function changeToFahrenheit(event) {
   event.preventDefault();
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
   let temperatureDisplay = document.querySelector("#temperature");
-  temperatureDisplay.innerHTML = 61;
+  temperatureDisplay.innerHTML = Math.round(fahrenheitTemperature);
 }
 
 let celsiusLink = document.querySelector("#celsius-link");
@@ -120,6 +127,8 @@ celsiusLink.addEventListener("click", changeToCelsius);
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", changeToFahrenheit);
+
+let celsiusTemperature = null;
 
 function showCurrentTemperature(response) {
   let h1 = document.querySelector("h1");

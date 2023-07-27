@@ -69,8 +69,6 @@ h3 {
 
 .degrees {
   font-size: 80px;
-  position: relative;
-  bottom: 30px;
 }
 
 .seeMore {
@@ -104,6 +102,15 @@ h3 {
 .footer {
   padding-top: 30px;
   color: #fdb44b;
+}
+
+#units .active {
+  color: #76b39d;
+  cursor: default;
+}
+
+#units .active:hover {
+  text-decoration: none;
 }
 
 #location {
