@@ -203,6 +203,33 @@ function retrievePosition(position) {
   axios.get(apiUrl).then(showCurrentTemperature);
 }
 
-//wind speed
-//weather description
-//weather icon
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast-container");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+        <div class="col-md-2" id="1">
+          <p>
+            Monday
+            <br />
+            <span class="material-symbols-rounded light_mode">
+              light_mode
+            </span>
+            <br />
+            13° ⎹ 20°
+            <br /><span class="material-symbols-rounded toggle_off">
+              toggle_off
+            </span>
+          </p>
+        </div>
+  `;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+displayForecast();
