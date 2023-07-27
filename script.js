@@ -1,9 +1,17 @@
-function formatDate() {
-  let now = new Date();
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
 
-  let date = now.getDate();
-  let hour = now.getHours();
-  let minutes = now.getMinutes();
+  let hour = date.getHours();
+  if (hour < 10) {
+    hour = "0" + hour;
+  }
+
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+
+  let dateNumber = date.getDate();
 
   let days = [
     "Sunday",
@@ -14,7 +22,7 @@ function formatDate() {
     "Friday",
     "Saturday",
   ];
-  let day = days[now.getDay()];
+  let day = days[date.getDay()];
 
   let months = [
     "January",
@@ -30,17 +38,9 @@ function formatDate() {
     "November",
     "December",
   ];
-  let month = months[now.getMonth()];
+  let month = months[date.getMonth()];
 
-  if (hour < 10) {
-    hour = "0" + hour;
-  }
-  if (minutes < 10) {
-    minutes = "0" + minutes;
-  }
-
-  let dateAndTime = document.querySelector("#date-and-time");
-  dateAndTime.innerHTML = `${day} ${date} ${month}  ⎹  ${hour}:${minutes}`;
+  return `Last Updated: ${day} ${dateNumber} ${month}  ⎹  ${hour}:${minutes}`;
 }
 
 function showSearchTemperature(response) {
@@ -131,12 +131,56 @@ fahrenheitLink.addEventListener("click", changeToFahrenheit);
 let celsiusTemperature = null;
 
 function showCurrentTemperature(response) {
+  console.log(response.data);
   let h1 = document.querySelector("h1");
-  let cityName = response.data.name;
+  let cityName = response.data.city;
   h1.innerHTML = `${cityName}`;
-  let temperature = Math.round(response.data.main.temp);
+
+  let description = response.data.condition.description;
+  let h2Description = document.querySelector("#description");
+  let dateElement = document.querySelector("#date-and-time");
+  let iconElement = document.querySelector("#icon");
+  h2Description.innerHTML = description;
+  dateElement.innerHTML = formatDate(response.data.time * 1000);
+  iconElement.setAttribute("src", `${response.data.condition.icon_url}`);
+
+  celsiusTemperature = response.data.temperature.current;
+
+  let temperature = Math.round(celsiusTemperature);
   let h3 = document.querySelector("#temperature");
   h3.innerHTML = `${temperature}`;
+
+  let precipitation = 0;
+  let humidity = response.data.temperature.humidity;
+  let wind = Math.round(response.data.wind.speed);
+  let UV = 5;
+
+  //let sunrise = response.data.sys.sunrise * 1000;
+  //let sunset = response.data.sys.sunset * 1000;
+  //let sunriseDate = new Date(sunrise);
+  //let sunriseHours = sunriseDate.getHours();
+  //let sunriseMinutes = sunriseDate.getMinutes();
+  //let sunsetDate = new Date(sunset);
+  //let sunsetHours = sunsetDate.getHours();
+  //let sunsetMinutes = sunsetDate.getMinutes();
+
+  //if (sunriseHours < 10) {
+  //  sunriseHours = "0" + sunriseHours;
+  //}
+  //if (sunriseMinutes < 10) {
+  // sunriseMinutes = "0" + sunriseMinutes;
+  //}
+  //if (sunsetHours < 10) {
+  //sunsetHours = "0" + sunsetHours;
+  //}
+  //if (sunsetMinutes < 10) {
+  // sunsetMinutes = "0" + sunsetMinutes;
+  //}
+
+  let h3Details = document.querySelector("#h3-details");
+  h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}kph`;
+  let h3Details2 = document.querySelector("#h3-details2");
+  h3Details2.innerHTML = `UV ${UV}<br> Sunrise 00:00<br> Sunset 00:00`;
 }
 function handlePosition(position) {
   console.log(position.coords.latitude);
@@ -158,3 +202,10 @@ function retrievePosition(position) {
 &lon=${longitude}&units=metric&key=${apiKey}`;
   axios.get(apiUrl).then(showCurrentTemperature);
 }
+
+//search engine
+//API integration
+//unit conversion
+//wind speed
+//weather description
+//weather icon
