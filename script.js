@@ -86,7 +86,7 @@ function showSearchTemperature(response) {
   //}
 
   let h3Details = document.querySelector("#h3-details");
-  h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}kph`;
+  h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}km/h`;
   let h3Details2 = document.querySelector("#h3-details2");
   h3Details2.innerHTML = `UV ${UV}<br> Sunrise 00:00<br> Sunset 00:00`;
 }
@@ -178,7 +178,7 @@ function showCurrentTemperature(response) {
   //}
 
   let h3Details = document.querySelector("#h3-details");
-  h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}kph`;
+  h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}km/h`;
   let h3Details2 = document.querySelector("#h3-details2");
   h3Details2.innerHTML = `UV ${UV}<br> Sunrise 00:00<br> Sunset 00:00`;
 }
@@ -203,9 +203,6 @@ function retrievePosition(position) {
   axios.get(apiUrl).then(showCurrentTemperature);
 }
 
-//search engine
-//API integration
-//unit conversion
 //wind speed
 //weather description
 //weather icon

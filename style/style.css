@@ -107,9 +107,6 @@ h3 {
 #units .active {
   color: #76b39d;
   cursor: default;
-}
-
-#units .active:hover {
   text-decoration: none;
 }
 
