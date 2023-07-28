@@ -78,11 +78,6 @@ function changeCity(event) {
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city.value}&units=metric&key=${apiKey}`;
 
   axios.get(apiUrl).then(showCurrentTemperature);
-
-  let openWeatherApiKey = "04764f8f499b01ab97e250ed8ce63c8f";
-  let openWeatherApiUrl = `https://api.openweathermap.org/data/3.0/onecall?q=${city.value}&units=metric&appid=${openWeatherApiKey}`;
-  console.log(openWeatherApiUrl);
-  axios.get(openWeatherApiUrl).then(extraDetails);
 }
 
 let form = document.querySelector("form");
@@ -117,6 +112,23 @@ function getForecast(coordinates) {
   let apiKey = "fe4080aao899e9f0t02b715782f60cc3";
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&units=metric&key=${apiKey}`;
   axios.get(apiUrl).then(displayForecast);
+
+  var myHeaders = new Headers();
+  myHeaders.append("x-access-token", "openuv-647uzhrlkmfxeti-io");
+  myHeaders.append("Content-Type", "application/json");
+
+  var requestOptions = {
+    method: "GET",
+    headers: myHeaders,
+    redirect: "follow",
+  };
+
+  fetch(
+    `https://api.openuv.io/api/v1/uv?lat=${coordinates.latitude}&lng=${coordinates.longitude}`,
+    requestOptions
+  )
+    .then((response) => response.json())
+    .then(UV);
 }
 
 function showCurrentTemperature(response) {
@@ -148,17 +160,17 @@ function showCurrentTemperature(response) {
   if (temperature > 24) {
     document.body.style.backgroundImage = "url('style/images/flowers.jpg')";
     let imageCredit = document.querySelector(".image-credit");
-    imageCredit.innerHTML = `Image by <a href="https://www.freepik.com/free-vector/gradient-flower-field-background_49160444.htm#page=2&query=landscape&position=45&from_view=search&track=sph" target="_blank">Freepik</a>`;
+    imageCredit.innerHTML = `Image by <a href="https://www.freepik.com/free-vector/gradient-flower-field-background_49160444.htm#page=2&query=landscape&position=45&from_view=search&track=sph" id ="freepik-link" target="_blank">Freepik</a>`;
   }
   if (temperature >= 17 && temperature <= 24) {
     document.body.style.backgroundImage = "url('style/images/lighthouse.jpg')";
     let imageCredit = document.querySelector(".image-credit");
-    imageCredit.innerHTML = `Image by <a href="https://www.freepik.com/free-vector/lighthouse-early-morning-sea-shore-beacon_21584911.htm#query=landscape&position=46&from_view=search&track=sph" target="_blank">Freepik</a>`;
+    imageCredit.innerHTML = `Image by <a href="https://www.freepik.com/free-vector/lighthouse-early-morning-sea-shore-beacon_21584911.htm#query=landscape&position=46&from_view=search&track=sph" id ="freepik-link" target="_blank">Freepik</a>`;
   }
   if (temperature < 17) {
     document.body.style.backgroundImage = "url('style/images/Scene-24.jpg')";
     let imageCredit = document.querySelector(".image-credit");
-    imageCredit.innerHTML = `Image by <a href="https://www.freepik.com/free-vector/nature-scene-with-river-hills-forest-mountain-landscape-flat-cartoon-style-illustration_12953559.htm#query=landscape&position=0&from_view=search&track=sph" target="_blank">Freepik</a>`;
+    imageCredit.innerHTML = `Image by <a href="https://www.freepik.com/free-vector/nature-scene-with-river-hills-forest-mountain-landscape-flat-cartoon-style-illustration_12953559.htm#query=landscape&position=0&from_view=search&track=sph" id ="freepik-link" target="_blank">Freepik</a>`;
   }
 
   getForecast(response.data.coordinates);
@@ -186,7 +198,7 @@ function retrievePosition(position) {
 
 function displayForecast(response) {
   let forecast = response.data.daily;
-  console.log(response.data);
+  forecast.shift();
   let forecastElement = document.querySelector("#forecast-container");
 
   let forecastHTML = `<div class="row">`;
@@ -245,6 +257,12 @@ function extraDetails(response) {
   }
   let sunsetElement = document.querySelector("#sunset");
   sunsetElement.innerHTML = `${sunsetHours}:${sunsetMinutes}`;
+}
+
+function UV(response) {
+  let uvMax = Math.round(response.result.uv_max);
+  let uvElement = document.querySelector("#UV");
+  uvElement.innerHTML = uvMax;
 }
 
 displayForecast();
