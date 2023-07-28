@@ -186,13 +186,16 @@ function displayForecast(response) {
   let forecastHTML = `<div class="row">`;
 
   forecast.forEach(function (forecastDay, index) {
+    console.log(forecastDay.condition.icon_url);
+
     if (index < 6) {
       forecastHTML =
         forecastHTML +
         `
         <div class="col-2">
         <div class="weather-forecast-date">${formatDay(forecastDay.time)}</div>
-            <img src= ${forecastDay.condition.icon_url}/>
+            <img src='${forecastDay.condition.icon_url}'/>
+
             <div class="weather-forecast-temperature"><span class="weather-forecast-temperature-max">
             ${Math.round(
               forecastDay.temperature.maximum
@@ -203,6 +206,7 @@ function displayForecast(response) {
               toggle_off
             </span>
         </div>
+        </div>
   `;
     }
   });
@@ -211,3 +215,5 @@ function displayForecast(response) {
 }
 
 displayForecast();
+
+getForecast("Melbourne");
