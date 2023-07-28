@@ -1,3 +1,13 @@
+function initialise() {
+  let city = "Melbourne";
+  let apiKey = "fe4080aao899e9f0t02b715782f60cc3";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=Melbourne&units=metric&key=${apiKey}`;
+
+  axios.get(apiUrl).then(showCurrentTemperature);
+}
+
+initialise();
+
 function formatDate(timestamp) {
   let date = new Date(timestamp);
 
