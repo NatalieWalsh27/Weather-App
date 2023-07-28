@@ -113,6 +113,11 @@ function getForecast(coordinates) {
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&units=metric&key=${apiKey}`;
   axios.get(apiUrl).then(displayForecast);
 
+  let openWeatherApiKey = "04764f8f499b01ab97e250ed8ce63c8f";
+  let openWeatherApirUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&units=metric&appid=${openWeatherApiKey}`;
+  console.log(openWeatherApirUrl);
+  axios.get(openWeatherApirUrl).then(extraDetails);
+
   var myHeaders = new Headers();
   myHeaders.append("x-access-token", "openuv-647uzhrlkmfxeti-io");
   myHeaders.append("Content-Type", "application/json");
@@ -150,12 +155,14 @@ function showCurrentTemperature(response) {
   let h3 = document.querySelector("#temperature");
   h3.innerHTML = `${temperature}`;
 
-  let precipitation = 0;
   let humidity = response.data.temperature.humidity;
   let wind = Math.round(response.data.wind.speed);
 
-  let h3Details = document.querySelector("#h3-details");
-  h3Details.innerHTML = `Precipitation &nbsp; ${precipitation}%<br> Humidity &nbsp; ${humidity}%<br> Wind &nbsp; ${wind}km/h`;
+  let humidityElement = document.querySelector("#humidity");
+  humidityElement.innerHTML = humidity;
+
+  let windElement = document.querySelector("#wind");
+  windElement.innerHTML = wind;
 
   if (temperature > 24) {
     document.body.style.backgroundImage = "url('style/images/flowers.jpg')";
@@ -235,7 +242,13 @@ function displayForecast(response) {
 
 function extraDetails(response) {
   console.log(response.data);
-  let sunrise = response.data.sys.sunrise * 1000;
+
+  let precipitation = response.data.list[0].pop * 100;
+  console.log(precipitation);
+  let precipitationElement = document.querySelector("#precipitation");
+  precipitationElement.innerHTML = precipitation;
+
+  let sunrise = response.data.city.sunrise * 1000;
   let sunriseDate = new Date(sunrise);
   let sunriseHours = sunriseDate.getHours();
   if (sunriseHours < 10) {
@@ -248,7 +261,7 @@ function extraDetails(response) {
   let sunriseElement = document.querySelector("#sunrise");
   sunriseElement.innerHTML = `${sunriseHours}:${sunriseMinutes}`;
 
-  let sunset = response.data.sys.sunset * 1000;
+  let sunset = response.data.city.sunset * 1000;
   let sunsetDate = new Date(sunset);
   let sunsetHours = sunsetDate.getHours();
   if (sunsetHours < 10) {
