@@ -155,7 +155,7 @@ function showCurrentTemperature(response) {
   let wind = Math.round(response.data.wind.speed);
 
   let h3Details = document.querySelector("#h3-details");
-  h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}km/h`;
+  h3Details.innerHTML = `Precipitation &nbsp; ${precipitation}%<br> Humidity &nbsp; ${humidity}%<br> Wind &nbsp; ${wind}km/h`;
 
   if (temperature > 24) {
     document.body.style.backgroundImage = "url('style/images/flowers.jpg')";
@@ -167,10 +167,16 @@ function showCurrentTemperature(response) {
     let imageCredit = document.querySelector(".image-credit");
     imageCredit.innerHTML = `Image by <a href="https://www.freepik.com/free-vector/lighthouse-early-morning-sea-shore-beacon_21584911.htm#query=landscape&position=46&from_view=search&track=sph" id ="freepik-link" target="_blank">Freepik</a>`;
   }
-  if (temperature < 17) {
+  if (temperature < 17 && temperature >= 10) {
     document.body.style.backgroundImage = "url('style/images/Scene-24.jpg')";
     let imageCredit = document.querySelector(".image-credit");
     imageCredit.innerHTML = `Image by <a href="https://www.freepik.com/free-vector/nature-scene-with-river-hills-forest-mountain-landscape-flat-cartoon-style-illustration_12953559.htm#query=landscape&position=0&from_view=search&track=sph" id ="freepik-link" target="_blank">Freepik</a>`;
+  }
+
+  if (temperature < 10) {
+    document.body.style.backgroundImage = "url('style/images/snow.jpg')";
+    let imageCredit = document.querySelector(".image-credit");
+    imageCredit.innerHTML = `Image by <a href="https://www.freepik.com/free-vector/winter-mountains-northern-nature-rocky-landscape_20700538.htm#page=2&query=cold%20landscape&position=3&from_view=search&track=ais" id ="freepik-link" target="_blank">Freepik</a>`;
   }
 
   getForecast(response.data.coordinates);
@@ -215,7 +221,7 @@ function displayForecast(response) {
             <div class="weather-forecast-temperature"><span class="weather-forecast-temperature-max">
             ${Math.round(
               forecastDay.temperature.maximum
-            )}°</span> ⎹ <span class="weather-forecast-temperature-min">${Math.round(
+            )}° &nbsp;</span> ⎹  <span class="weather-forecast-temperature-min">&nbsp; ${Math.round(
           forecastDay.temperature.minimum
         )}°
         </div>
