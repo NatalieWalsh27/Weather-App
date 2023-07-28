@@ -100,6 +100,11 @@ h3 {
   cursor: pointer;
 }
 
+.col-2 {
+  color: #962071;
+  text-align: center;
+}
+
 .footer {
   padding-top: 30px;
   color: #fdb44b;
@@ -134,13 +139,12 @@ h3 {
 
 #icon {
   position: relative;
-  left: -20px;
+  left: 30px;
 }
 
 #temperature {
   position: relative;
-  left: 70px;
-  top: -160px;
+  left: 30px;
 }
 
 #units {
@@ -148,8 +152,8 @@ h3 {
   font-size: 25px;
   font-family: "Fredoka", sans-serif;
   position: relative;
-  top: -240px;
-  left: 35px;
+  left: -5px;
+  bottom: 90px;
 }
 
 #celsius-link {
@@ -165,6 +169,11 @@ h3 {
   font-size: 30px;
   font-weight: 100;
   margin-top: 50px;
+}
+
+#h3-details2 {
+  position: relative;
+  left: 200px;
 }
 
 #date-and-time {

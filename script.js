@@ -186,8 +186,6 @@ function displayForecast(response) {
   let forecastHTML = `<div class="row">`;
 
   forecast.forEach(function (forecastDay, index) {
-    console.log(forecastDay.condition.icon_url);
-
     if (index < 6) {
       forecastHTML =
         forecastHTML +
@@ -201,7 +199,7 @@ function displayForecast(response) {
               forecastDay.temperature.maximum
             )}°</span> ⎹ <span class="weather-forecast-temperature-min">${Math.round(
           forecastDay.temperature.minimum
-        )}°</span>
+        )}°</span><br>
 <span class="material-symbols-rounded toggle_off">
               toggle_off
             </span>
