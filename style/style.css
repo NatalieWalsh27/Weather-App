@@ -88,20 +88,8 @@ p {
   font-size: 50px;
 }
 
-.toggle_off {
-  color: #76b39d;
-  font-size: 40px;
-}
-
-.toggle_off_large {
-  color: #962071;
-  font-size: 90px;
-  text-align: center;
-  display: block;
-}
-
-.toggle_off_large:hover {
-  cursor: pointer;
+.weather-temperature {
+  padding-bottom: 40px;
 }
 
 .col-2 {
@@ -140,6 +128,7 @@ p {
   background-color: rgba(255, 255, 255, 0.7);
   border-radius: 30px;
   padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 #github-link {
