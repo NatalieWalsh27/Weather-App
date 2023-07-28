@@ -68,6 +68,10 @@ h3 {
   font-size: 140px;
 }
 
+p {
+  text-shadow: 0.5px 0.5px rgba(255, 255, 255, 0.7);
+}
+
 .degrees {
   font-size: 80px;
 }
@@ -108,6 +112,11 @@ h3 {
 .footer {
   padding-top: 30px;
   color: #fdb44b;
+}
+
+.image-credit {
+  text-align: right;
+  color: #962071;
 }
 
 #units .active {

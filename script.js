@@ -79,8 +79,8 @@ function changeCity(event) {
 
   axios.get(apiUrl).then(showCurrentTemperature);
 
-  let openWeatherApiKey = "e450bc345a80a08ada69fd5c714d871d";
-  let openWeatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&units=metric&appid=${openWeatherApiKey}`;
+  let openWeatherApiKey = "04764f8f499b01ab97e250ed8ce63c8f";
+  let openWeatherApiUrl = `https://api.openweathermap.org/data/3.0/onecall?q=${city.value}&units=metric&appid=${openWeatherApiKey}`;
   console.log(openWeatherApiUrl);
   axios.get(openWeatherApiUrl).then(extraDetails);
 }
@@ -144,6 +144,22 @@ function showCurrentTemperature(response) {
 
   let h3Details = document.querySelector("#h3-details");
   h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}km/h`;
+
+  if (temperature > 24) {
+    document.body.style.backgroundImage = "url('style/images/flowers.jpg')";
+    let imageCredit = document.querySelector(".image-credit");
+    imageCredit.innerHTML = `Image by <a href="https://www.freepik.com/free-vector/gradient-flower-field-background_49160444.htm#page=2&query=landscape&position=45&from_view=search&track=sph" target="_blank">Freepik</a>`;
+  }
+  if (temperature >= 17 && temperature <= 24) {
+    document.body.style.backgroundImage = "url('style/images/lighthouse.jpg')";
+    let imageCredit = document.querySelector(".image-credit");
+    imageCredit.innerHTML = `Image by <a href="https://www.freepik.com/free-vector/lighthouse-early-morning-sea-shore-beacon_21584911.htm#query=landscape&position=46&from_view=search&track=sph" target="_blank">Freepik</a>`;
+  }
+  if (temperature < 17) {
+    document.body.style.backgroundImage = "url('style/images/Scene-24.jpg')";
+    let imageCredit = document.querySelector(".image-credit");
+    imageCredit.innerHTML = `Image by <a href="https://www.freepik.com/free-vector/nature-scene-with-river-hills-forest-mountain-landscape-flat-cartoon-style-illustration_12953559.htm#query=landscape&position=0&from_view=search&track=sph" target="_blank">Freepik</a>`;
+  }
 
   getForecast(response.data.coordinates);
 }
