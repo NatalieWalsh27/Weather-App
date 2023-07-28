@@ -78,6 +78,11 @@ function changeCity(event) {
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city.value}&units=metric&key=${apiKey}`;
 
   axios.get(apiUrl).then(showCurrentTemperature);
+
+  let openWeatherApiKey = "e450bc345a80a08ada69fd5c714d871d";
+  let openWeatherApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&units=metric&appid=${openWeatherApiKey}`;
+  console.log(openWeatherApiUrl);
+  axios.get(openWeatherApiUrl).then(extraDetails);
 }
 
 let form = document.querySelector("form");
@@ -136,34 +141,9 @@ function showCurrentTemperature(response) {
   let precipitation = 0;
   let humidity = response.data.temperature.humidity;
   let wind = Math.round(response.data.wind.speed);
-  let UV = 5;
-
-  //let sunrise = response.data.sys.sunrise * 1000;
-  //let sunset = response.data.sys.sunset * 1000;
-  //let sunriseDate = new Date(sunrise);
-  //let sunriseHours = sunriseDate.getHours();
-  //let sunriseMinutes = sunriseDate.getMinutes();
-  //let sunsetDate = new Date(sunset);
-  //let sunsetHours = sunsetDate.getHours();
-  //let sunsetMinutes = sunsetDate.getMinutes();
-
-  //if (sunriseHours < 10) {
-  //  sunriseHours = "0" + sunriseHours;
-  //}
-  //if (sunriseMinutes < 10) {
-  // sunriseMinutes = "0" + sunriseMinutes;
-  //}
-  //if (sunsetHours < 10) {
-  //sunsetHours = "0" + sunsetHours;
-  //}
-  //if (sunsetMinutes < 10) {
-  // sunsetMinutes = "0" + sunsetMinutes;
-  //}
 
   let h3Details = document.querySelector("#h3-details");
   h3Details.innerHTML = `Precipitation ${precipitation}%<br> Humidity ${humidity}%<br> Wind ${wind}km/h`;
-  let h3Details2 = document.querySelector("#h3-details2");
-  h3Details2.innerHTML = `UV ${UV}<br> Sunrise 00:00<br> Sunset 00:00`;
 
   getForecast(response.data.coordinates);
 }
@@ -190,7 +170,7 @@ function retrievePosition(position) {
 
 function displayForecast(response) {
   let forecast = response.data.daily;
-  console.log(forecast[0].condition.icon_url);
+  console.log(response.data);
   let forecastElement = document.querySelector("#forecast-container");
 
   let forecastHTML = `<div class="row">`;
@@ -222,6 +202,33 @@ function displayForecast(response) {
   forecastElement.innerHTML = forecastHTML;
 }
 
-displayForecast();
+function extraDetails(response) {
+  console.log(response.data);
+  let sunrise = response.data.sys.sunrise * 1000;
+  let sunriseDate = new Date(sunrise);
+  let sunriseHours = sunriseDate.getHours();
+  if (sunriseHours < 10) {
+    sunriseHours = "0" + sunriseHours;
+  }
+  let sunriseMinutes = sunriseDate.getMinutes();
+  if (sunriseMinutes < 10) {
+    sunriseMinutes = "0" + sunriseMinutes;
+  }
+  let sunriseElement = document.querySelector("#sunrise");
+  sunriseElement.innerHTML = `${sunriseHours}:${sunriseMinutes}`;
 
-getForecast("Melbourne");
+  let sunset = response.data.sys.sunset * 1000;
+  let sunsetDate = new Date(sunset);
+  let sunsetHours = sunsetDate.getHours();
+  if (sunsetHours < 10) {
+    sunsetHours = "0" + sunsetHours;
+  }
+  let sunsetMinutes = sunsetDate.getMinutes();
+  if (sunsetMinutes < 10) {
+    sunsetMinutes = "0" + sunsetMinutes;
+  }
+  let sunsetElement = document.querySelector("#sunset");
+  sunsetElement.innerHTML = `${sunsetHours}:${sunsetMinutes}`;
+}
+
+displayForecast();
