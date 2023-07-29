@@ -115,7 +115,6 @@ function getForecast(coordinates) {
 
   let openWeatherApiKey = "04764f8f499b01ab97e250ed8ce63c8f";
   let openWeatherApirUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&units=metric&appid=${openWeatherApiKey}`;
-  console.log(openWeatherApirUrl);
   axios.get(openWeatherApirUrl).then(extraDetails);
 
   var myHeaders = new Headers();
@@ -241,10 +240,7 @@ function displayForecast(response) {
 }
 
 function extraDetails(response) {
-  console.log(response.data);
-
   let precipitation = response.data.list[0].pop * 100;
-  console.log(precipitation);
   let precipitationElement = document.querySelector("#precipitation");
   precipitationElement.innerHTML = precipitation;
 
